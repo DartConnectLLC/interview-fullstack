@@ -1,6 +1,6 @@
-# Fullstack pair programming exercise: legacy match recap import
+# Match import and recap
 
-We have a legacy match document from an older system. We want to import it into a modern app and show a small recap page that support and organizers can use to review the match.
+An older system POSTs the payload below to an API endpoint. It is one completed match, sent once after the match finished. Take it in, store it, and show a small recap page that support and organizers can use.
 
 The stack is Laravel and Vue. Everything else is your choice.
 
@@ -8,26 +8,26 @@ The stack is Laravel and Vue. Everything else is your choice.
 
 Explain how you would model this. We mostly care about:
 
-- how you read the payload (validation, idempotency)
+- how you receive and read the payload at the endpoint (validation, idempotency)
 - the data model you pick
 - which fields you store as separate columns
 - what you keep as raw payload
 - how you calculate the recap (derived or stored)
 - how you test the import
 
-A few things to notice in the document:
+A few things to notice in the payload:
 
 - Each team inside a leg has its own turns array. They are not interleaved.
 - A turn's `player_index` is the index into that team's `players` array.
 - The recap can be small or detailed. Score, winner and duration is enough. Per-team or per-player stats are nice if there is time.
 
-We can discuss this together before you start coding.
+Auth on the endpoint and live updates are out of scope. Assume the request is trusted. Happy to talk about both if you want to.
 
-## The legacy document
+## The payload
 
 ```json
 {
-    "_id": "match_abc123",
+    "external_id": "match_abc123",
     "tournament_id": "dutch-open-2026",
     "event": {
         "id": "pairs-open",
@@ -158,6 +158,7 @@ We can discuss this together before you start coding.
 
 ## Practical notes
 
+- Work as you normally would. Think out loud where it helps.
 - Use the Laravel and Vue versions you are comfortable with.
 - Database is your choice. Be ready to explain why.
 - Small and finished beats large and half done. "I would do X next" is a fine answer.
